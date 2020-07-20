@@ -141,7 +141,11 @@ class FileHandler:
 		destpath = str(pathlib.Path(__file__).parent.absolute()) + "/" + folder+ "/" + txt
 		print (destpath)
 		copyfile(tocopy, destpath)
+		
+	def createcompletelist(self):
+		os.system('py importa_lista_completa.py')
 	
+
 i = 0 
 while i != 1:
 	c = input("Warzone 1, 2 ou 3? (1,2,3)\n")
@@ -157,6 +161,7 @@ folder = f1.createfolder(c)
 #Abrindo os arquivos
 l = f1.openanalyzer()
 acessos = f1.openacessso()
+f1.createcompletelist()
 comp = f1.opencompleta()
 
 #Processando a lista do analyzer
