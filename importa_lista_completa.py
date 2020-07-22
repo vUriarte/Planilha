@@ -5,7 +5,7 @@ from googleapiclient import discovery
 
 # use creds to create a client to interact with the Google Drive API
 scope = ['https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('Planilha Warzone-fc28e7965fd6.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('planilha-warzone-581877ca2410.json', scope)
 client = gspread.authorize(creds)
 service = discovery.build('sheets', 'v4', credentials=creds)
 # Find a workbook by name and open the first sheet
