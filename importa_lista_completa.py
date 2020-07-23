@@ -38,8 +38,8 @@ uncleaned.remove(y) # Remove o primeiro elemento
 uncleaned = [w.replace(']', '') for w in uncleaned]
 uncleaned = [w.replace("'", '') for w in uncleaned]
 uncleaned = [w.strip() for w in uncleaned]
-for p in uncleaned:
-	print(p+"\n")
+#for p in uncleaned:
+#	print(p+"\n")
 
 with open("ListaCompleta.txt","w+") as cleanfile:
 	for line in uncleaned:

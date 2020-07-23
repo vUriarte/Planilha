@@ -31,11 +31,12 @@ class FileHandler:
 		return l
 		
 	
-	def openacessso(self):
-		with open("Comacesso.txt", "r") as file2: #ler arquivo dos com acesso
+	def openacessso(self, wz):
+		filename = "comacessowz"+str(wz)+".txt"
+		with open(filename, "r") as file2: #ler arquivo dos com acesso
 			acessos = file2.readlines()
 			file2.close()
-		return acessos
+		return acessos,filename
 		
 	
 	def opencompleta(self):
@@ -89,9 +90,9 @@ class FileHandler:
 		self.movetofolder(folder,"Membros antigos.txt","Membros antigos.txt")
 		os.remove("Membros antigos.txt")		
 	
-	def generateaccess(self,acessos,folder):
+	def generateaccess(self,acessos,folder,filename):
 		destpath = str(pathlib.Path(__file__).parent.absolute()) + "/" + folder+ "/" + "Analyzer_limpo.txt"
-		with open(destpath, "r") as file, open("Comacesso.txt", "r") as file2, open("Acessopresente.txt", "w") as file3:	
+		with open(destpath, "r") as file, open(filename, "r") as file2, open("Acessopresente.txt", "w") as file3:	
 			l = file.readlines() #armazena o arquivo analyzer limpo na memória	
 			for line in acessos:
 				if line in l:					
@@ -143,8 +144,13 @@ class FileHandler:
 		copyfile(tocopy, destpath)
 		
 	def createcompletelist(self):
+		print("Gerando Lista de Todos Os Players...\n")
 		os.system('py importa_lista_completa.py')
-	
+		
+	def createwithaccesslist(self):
+		print("Gerando Lista de Players Com Acesso...\n")
+		os.system('py importa_com_acessos.py')
+		
 
 i = 0 
 while i != 1:
@@ -160,7 +166,8 @@ f1 = FileHandler()
 folder = f1.createfolder(c)
 #Abrindo os arquivos
 l = f1.openanalyzer()
-acessos = f1.openacessso()
+f1.createwithaccesslist()
+acessos,filename = f1.openacessso(c)
 f1.createcompletelist()
 comp = f1.opencompleta()
 
@@ -174,7 +181,7 @@ f1.generatenewmembers(comp,folder)
 f1.generateoldmembers(folder)
 
 #Gera lista dos com acesso presente
-f1.generateaccess(acessos,folder)
+f1.generateaccess(acessos,folder,filename)
 
 #Gera lista dos sem acesso presente
 f1.generatenoaccess(folder)
